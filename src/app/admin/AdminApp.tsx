@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Images, Sliders, Building2, Wrench, Users, Settings, LogOut, ExternalLink, Menu, X, Upload, Trash2, Plus, Save, RefreshCw, CheckCircle, AlertCircle, Phone, Mail, MapPin,
 } from "lucide-react";
 import { useMarqueeImages, useCompanyInfo, useProjectImages } from "../../lib/store";
-import { uploadToImageKit } from "../../lib/imagekit";
+import { uploadToImageKit, IK_CONFIG } from "../../lib/imagekit";
 import { LogoMark } from "../components/Logo";
 
 // ---------- helpers ----------
@@ -505,8 +505,8 @@ function SettingsPage() {
         <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#E8A020", marginBottom: "1rem" }}>إعدادات ImageKit</h3>
         <div className="space-y-3">
           {[
-            { label: "Endpoint URL", value: "https://ik.imagekit.io/tilal/athaad" },
-            { label: "Public Key", value: "public_+k3lyndt9cYs7b5fumiMgiYG1C0=" },
+            { label: "Endpoint URL", value: IK_CONFIG.urlEndpoint },
+            { label: "Public Key", value: IK_CONFIG.publicKey },
             { label: "Folder (Projects)", value: "/projects" },
             { label: "Folder (Marquee)", value: "/marquee" },
           ].map((item) => (

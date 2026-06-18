@@ -1,11 +1,11 @@
 export const IK_CONFIG = {
   urlEndpoint: "https://ik.imagekit.io/tilal/athaad",
-  publicKey: "public_+k3lyndt9cYs7b5fumiMgiYG1C0=",
+  publicKey: "public_wSOdGzunkPapu5vMbZa8yDS3wQc=",
 };
 
 /** Build an ImageKit URL with optional transformations */
 export function ikUrl(path: string, opts?: { w?: number; h?: number; q?: number }) {
-  const base = `${IK_CONFIG.urlEndpoint}/${path.replace(/^\//, "")}`;
+  const base = `${IK_CONFIG.urlEndpoint.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
   if (!opts) return base;
   const parts: string[] = [];
   if (opts.w) parts.push(`w-${opts.w}`);
