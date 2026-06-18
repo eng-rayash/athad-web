@@ -39,20 +39,18 @@ const navItems = [
   { path: "/admin/settings", icon: Settings, label: "الإعدادات" },
 ];
 
-function Sidebar({ open, onClose, onLogout }: { open: boolean; onClose: () => void; onLogout: () => void }) {
+function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
     <>
-      {/* Overlay mobile */}
       {open && <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={onClose} />}
 
       <aside
         className={`fixed top-0 right-0 h-full z-50 flex flex-col transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-full lg:translate-x-0"}`}
         style={{ width: "260px", background: "#0D0D1A", borderLeft: "1px solid rgba(232,160,32,0.15)" }}
       >
-        {/* Logo */}
         <div className="p-6 flex items-center justify-between border-b" style={{ borderColor: "rgba(232,160,32,0.12)" }}>
           <div className="flex items-center gap-3">
             <LogoMark size={38} />
@@ -66,7 +64,6 @@ function Sidebar({ open, onClose, onLogout }: { open: boolean; onClose: () => vo
           </button>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -95,7 +92,6 @@ function Sidebar({ open, onClose, onLogout }: { open: boolean; onClose: () => vo
           })}
         </nav>
 
-        {/* Footer actions */}
         <div className="p-4 border-t space-y-2" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
           <button
             onClick={() => window.open("/#/", "_blank")}
@@ -104,14 +100,6 @@ function Sidebar({ open, onClose, onLogout }: { open: boolean; onClose: () => vo
           >
             <ExternalLink size={15} />
             عرض الموقع
-          </button>
-          <button
-            onClick={onLogout}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl"
-            style={{ background: "rgba(239,68,68,0.08)", color: "#EF4444", fontFamily: "Tajawal, sans-serif", fontSize: "13px", fontWeight: 600, border: "1px solid rgba(239,68,68,0.2)", cursor: "pointer", direction: "rtl", textAlign: "right" }}
-          >
-            <LogOut size={15} />
-            تسجيل الخروج
           </button>
         </div>
       </aside>
@@ -150,7 +138,7 @@ function Dashboard() {
                 </div>
                 <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "12px", color: "#4A4A6A" }}>{s.label}</span>
               </div>
-              <div style={{ fontFamily: s.small ? "JetBrains Mono, monospace" : "JetBrains Mono, monospace", fontWeight: 700, fontSize: s.small ? "13px" : "2rem", color: s.color, wordBreak: "break-all" }}>
+              <div style={{ fontFamily: "JetBrains Mono, monospace", fontWeight: 700, fontSize: s.small ? "13px" : "2rem", color: s.color, wordBreak: "break-all" }}>
                 {s.value}
               </div>
             </div>
@@ -158,7 +146,6 @@ function Dashboard() {
         })}
       </div>
 
-      {/* Quick guide */}
       <div className="rounded-2xl p-6" style={{ background: "rgba(232,160,32,0.06)", border: "1px solid rgba(232,160,32,0.2)" }}>
         <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#E8A020", marginBottom: "1rem" }}>دليل سريع</h3>
         <div className="grid md:grid-cols-2 gap-4">
@@ -221,7 +208,6 @@ function MarqueeManager() {
         <p style={{ fontFamily: "Tajawal, sans-serif", fontSize: "14px", color: "#4A4A6A" }}>الصور المرفوعة هنا تظهر في الشريط المتحرك أسفل معرض المشاريع</p>
       </div>
 
-      {/* Upload zone */}
       <div className="rounded-2xl p-6" style={{ background: "rgba(255,255,255,0.04)", border: "2px dashed rgba(232,160,32,0.3)" }}>
         <div className="text-center mb-4">
           <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: "rgba(232,160,32,0.1)" }}>
@@ -248,7 +234,6 @@ function MarqueeManager() {
         </label>
       </div>
 
-      {/* Images grid */}
       {images.length === 0 ? (
         <div className="text-center py-12" style={{ color: "#4A4A6A", fontFamily: "Tajawal, sans-serif" }}>
           لا توجد صور بعد — ارفع صورك لتظهر في الشريط المتحرك
@@ -322,7 +307,6 @@ function ProjectsManager() {
         <p style={{ fontFamily: "Tajawal, sans-serif", fontSize: "14px", color: "#4A4A6A" }}>رفع وإدارة صور مشاريع الشركة عبر ImageKit</p>
       </div>
 
-      {/* Upload form */}
       <div className="rounded-2xl p-6 space-y-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(232,160,32,0.2)" }}>
         <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#F8F5F0" }}>رفع مشروع جديد</h3>
         <div className="grid md:grid-cols-2 gap-4">
@@ -367,7 +351,6 @@ function ProjectsManager() {
         </label>
       </div>
 
-      {/* Uploaded images */}
       {images.length > 0 && (
         <div>
           <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#F8F5F0", marginBottom: "1rem" }}>الصور المرفوعة ({images.length})</h3>
@@ -454,7 +437,7 @@ function CompanyInfoPage() {
   );
 }
 
-// ---------- Equipment / Workforce pages (simple placeholders) ----------
+// ---------- Equipment / Workforce pages ----------
 function EquipmentPage() {
   return (
     <div className="space-y-4">
@@ -482,7 +465,7 @@ function WorkforcePage() {
 
 // ---------- Settings ----------
 function SettingsPage() {
-  const { info, reset } = useCompanyInfo();
+  const { reset } = useCompanyInfo();
   const { images: marquee, setImages: setMarquee } = useMarqueeImages();
   const { images: projects, setImages: setProjects } = useProjectImages();
   const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
@@ -500,7 +483,6 @@ function SettingsPage() {
       {toast && <Toast msg={toast.msg} type={toast.type} />}
       <h1 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 900, fontSize: "1.6rem", color: "#F8F5F0" }}>الإعدادات</h1>
 
-      {/* ImageKit info */}
       <div className="rounded-2xl p-6" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(232,160,32,0.15)" }}>
         <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#E8A020", marginBottom: "1rem" }}>إعدادات ImageKit</h3>
         <div className="space-y-3">
@@ -518,7 +500,6 @@ function SettingsPage() {
         </div>
       </div>
 
-      {/* Stats */}
       <div className="rounded-2xl p-6" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
         <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#F8F5F0", marginBottom: "1rem" }}>إحصائيات التخزين المحلي</h3>
         <div className="grid grid-cols-3 gap-4 mb-6">
@@ -547,129 +528,14 @@ function SettingsPage() {
 }
 
 // ---------- Root Admin App ----------
-// ---------- Login Component ----------
-function Login({ onLogin }: { onLogin: () => void }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    setTimeout(() => {
-      if (username === "rayashalbureihi" && password === "athad@7782") {
-        onLogin();
-      } else {
-        setError("اسم المستخدم أو كلمة المرور غير صحيحة");
-        setLoading(false);
-      }
-    }, 800);
-  };
-
-  return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "radial-gradient(circle at center, #121225 0%, #06060f 100%)", direction: "rtl" }}>
-      <div className="w-full max-w-md p-8 rounded-3xl relative overflow-hidden" style={{ background: "rgba(13, 13, 26, 0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(232, 160, 32, 0.2)", boxShadow: "0 20px 50px rgba(0, 0, 0, 0.5)" }}>
-        <div className="absolute -top-40 -left-40 w-80 h-80 rounded-full" style={{ background: "rgba(232, 160, 32, 0.08)", filter: "blur(80px)", pointerEvents: "none" }} />
-        <div className="absolute -bottom-40 -right-40 w-80 h-80 rounded-full" style={{ background: "rgba(232, 160, 32, 0.05)", filter: "blur(80px)", pointerEvents: "none" }} />
-
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(232, 160, 32, 0.1)", border: "1px solid rgba(232, 160, 32, 0.3)" }}>
-            <LogoMark size={42} />
-          </div>
-          <h2 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 900, fontSize: "1.6rem", color: "#F8F5F0" }}>تسجيل الدخول لوحة التحكم</h2>
-          <p style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#4A4A6A", marginTop: "6px" }}>شركة اتحاد البناء للمقاولات العامة</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {error && (
-            <div className="p-4 rounded-xl flex items-center gap-3" style={{ background: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.2)", color: "#ef4444", fontFamily: "Tajawal, sans-serif", fontSize: "13px" }}>
-              <AlertCircle size={16} />
-              <span>{error}</span>
-            </div>
-          )}
-
-          <div>
-            <label style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#8A9BB0", display: "block", marginBottom: "8px" }}>اسم المستخدم</label>
-            <div className="relative">
-              <input
-                type="text"
-                required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-3.5 pr-11 rounded-xl outline-none transition-all text-right"
-                style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "#F8F5F0" }}
-                placeholder="أدخل اسم المستخدم"
-              />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2" style={{ color: "#4A4A6A" }}>
-                <Users size={16} />
-              </span>
-            </div>
-          </div>
-
-          <div>
-            <label style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#8A9BB0", display: "block", marginBottom: "8px" }}>كلمة المرور</label>
-            <div className="relative">
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3.5 pr-11 rounded-xl outline-none transition-all text-right"
-                style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", color: "#F8F5F0" }}
-                placeholder="أدخل كلمة المرور"
-              />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2" style={{ color: "#4A4A6A" }}>
-                <Settings size={16} />
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-3 py-3.5 px-6 rounded-xl transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
-            style={{ background: "linear-gradient(135deg, #E8A020, #C47B1A)", color: "white", fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "15px", border: "none", cursor: "pointer" }}
-          >
-            {loading ? <RefreshCw size={18} className="animate-spin" /> : null}
-            {loading ? "جاري التحقق..." : "تسجيل الدخول"}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-// ---------- Root Admin App ----------
 export default function AdminApp() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return sessionStorage.getItem("admin_auth") === "true";
-  });
-
-  const handleLogin = () => {
-    sessionStorage.setItem("admin_auth", "true");
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("admin_auth");
-    setIsLoggedIn(false);
-  };
-
-  if (!isLoggedIn) {
-    return <Login onLogin={handleLogin} />;
-  }
 
   return (
     <div className="min-h-screen flex" style={{ background: "#0A0A16", direction: "rtl" }}>
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} onLogout={handleLogout} />
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col" style={{ marginRight: "260px" }} >
-        {/* Topbar */}
+      <div className="flex-1 flex flex-col" style={{ marginRight: "260px" }}>
         <header
           className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 border-b"
           style={{ background: "rgba(10,10,22,0.95)", backdropFilter: "blur(20px)", borderColor: "rgba(255,255,255,0.06)" }}
@@ -695,7 +561,6 @@ export default function AdminApp() {
           </button>
         </header>
 
-        {/* Page content */}
         <main className="flex-1 p-6 overflow-y-auto">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -709,7 +574,6 @@ export default function AdminApp() {
         </main>
       </div>
 
-      {/* Mobile sidebar toggle fix */}
       <style>{`
         @media (max-width: 1023px) {
           .flex-1 { margin-right: 0 !important; }
