@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import importedProjects from "../app/components/imported_projects.json";
 
 export interface MarqueeImage {
   id: string;
@@ -149,7 +150,9 @@ export function useProjectImages() {
   const update = (id: string, patch: Partial<ProjectImage>) =>
     save(images.map((img) => (img.id === id ? { ...img, ...patch } : img)));
 
-  return { images, add, remove, update, setImages: save };
+  const mergedImages = [...(importedProjects as ProjectImage[]), ...images];
+
+  return { images: mergedImages, add, remove, update, setImages: save };
 }
 
 /** Simple hook for any string value in localStorage */
@@ -166,7 +169,8 @@ export function getMarqueeImages(): MarqueeImage[] {
 
 /** Read project images synchronously (for non-admin components) */
 export function getProjectImages(): ProjectImage[] {
-  return readLS<ProjectImage[]>("ub_project_images", []);
+  const local = readLS<ProjectImage[]>("ub_project_images", []);
+  return [...(importedProjects as ProjectImage[]), ...local];
 }
 
 /** Read company info synchronously */
