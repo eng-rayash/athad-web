@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { X, ZoomIn, ChevronRight, ChevronLeft, ArrowLeft } from "lucide-react";
-import { getProjectImages, type ProjectImage } from "../../lib/store";
+import { type ProjectImage } from "../../lib/store";
 
 import img14 from "../../imports/________________1__14.jpg";
 import img15 from "../../imports/________________1__15.jpg";
@@ -9,6 +9,7 @@ import img16 from "../../imports/________________1__16.jpg";
 import img17 from "../../imports/________________1__17.jpg";
 import img18 from "../../imports/________________1__18.jpg";
 import img19 from "../../imports/________________1__19.jpg";
+import img20 from "../../imports/________________1__20.jpg";
 
 const STATIC_PROJECTS: ProjectImage[] = [
   { id: "s1", url: img14 as unknown as string, title: "أعمال الأساسات والحديد", category: "الأساسات والخوازيق", desc: "أعمال حديد التسليح وتشكيل القواعد الخرسانية لمشاريع متعددة في الدمام", uploadedAt: "" },
@@ -17,6 +18,7 @@ const STATIC_PROJECTS: ProjectImage[] = [
   { id: "s4", url: img17 as unknown as string, title: "الأعمدة والمباني السكنية", category: "مباني سكنية", desc: "تنفيذ أعمال الأعمدة الخرسانية وإنشاء المباني السكنية", uploadedAt: "" },
   { id: "s5", url: img18 as unknown as string, title: "المباني التجارية والمستودعات", category: "مباني تجارية", desc: "إنشاء المباني التجارية ومحطات الوقود والمستودعات", uploadedAt: "" },
   { id: "s6", url: img19 as unknown as string, title: "الفلل والوحدات السكنية", category: "مباني سكنية", desc: "تشييد فلل ووحدات سكنية متكاملة من الهيكل حتى التسليم", uploadedAt: "" },
+  { id: "s7", url: img20 as unknown as string, title: "مشاريع متنوعة", category: "مباني تجارية", desc: "مجموعة متنوعة من المشاريع تشمل المساجد والمباني العامة والمستودعات", uploadedAt: "" },
 ];
 
 /* ---------- Main Gallery (Homepage Preview) ---------- */
@@ -25,19 +27,7 @@ export function ProjectsGallery() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [activeCategory, setActiveCategory] = useState("الكل");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [displayProjects, setDisplayProjects] = useState<ProjectImage[]>(STATIC_PROJECTS);
-
-  useEffect(() => {
-    const load = () => {
-      const adminImgs = getProjectImages();
-      setDisplayProjects(adminImgs.length > 0 ? adminImgs : STATIC_PROJECTS);
-    };
-    load();
-    const handler = (e: StorageEvent) => { if (e.key === "ub_project_images") load(); };
-    window.addEventListener("storage", handler);
-    return () => window.removeEventListener("storage", handler);
-  }, []);
-
+  const displayProjects = STATIC_PROJECTS;
   const availCats = ["الكل", ...Array.from(new Set(displayProjects.map((p) => p.category)))];
 
   const filtered = (activeCategory === "الكل"
