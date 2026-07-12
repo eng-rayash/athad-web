@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { X, ZoomIn, ChevronRight, ChevronLeft, LayoutGrid, Filter } from "lucide-react";
-import { getProjectImages, getMarqueeImages, type MarqueeImage, type ProjectImage } from "../../lib/store";
+import { getProjectImages, type ProjectImage } from "../../lib/store";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { WhatsAppFloat } from "./WhatsAppFloat";
@@ -12,7 +12,6 @@ import img16 from "../../imports/________________1__16.jpg";
 import img17 from "../../imports/________________1__17.jpg";
 import img18 from "../../imports/________________1__18.jpg";
 import img19 from "../../imports/________________1__19.jpg";
-import img20 from "../../imports/________________1__20.jpg";
 
 // ---- Default static projects (fallback) ----
 const STATIC_PROJECTS: ProjectImage[] = [
@@ -22,49 +21,7 @@ const STATIC_PROJECTS: ProjectImage[] = [
   { id: "s4", url: img17 as unknown as string, title: "الأعمدة والمباني السكنية", category: "مباني سكنية", desc: "تنفيذ أعمال الأعمدة الخرسانية وإنشاء المباني السكنية", uploadedAt: "" },
   { id: "s5", url: img18 as unknown as string, title: "المباني التجارية والمستودعات", category: "مباني تجارية", desc: "إنشاء المباني التجارية ومحطات الوقود والمستودعات", uploadedAt: "" },
   { id: "s6", url: img19 as unknown as string, title: "الفلل والوحدات السكنية", category: "مباني سكنية", desc: "تشييد فلل ووحدات سكنية متكاملة من الهيكل حتى التسليم", uploadedAt: "" },
-  { id: "s7", url: img20 as unknown as string, title: "مشاريع متنوعة", category: "أعمال متنوعة", desc: "مجموعة متنوعة من المشاريع تشمل المساجد والمباني العامة", uploadedAt: "" },
 ];
-
-// ---- Marquee strip ----
-const DEFAULT_MARQUEE_SRCS = [img14, img15, img16, img17, img18, img19, img20];
-
-function MarqueeStrip() {
-  const [adminImages, setAdminImages] = useState<MarqueeImage[]>([]);
-  useEffect(() => {
-    const load = () => setAdminImages(getMarqueeImages());
-    load();
-    const handler = (e: StorageEvent) => { if (e.key === "ub_marquee_images") load(); };
-    window.addEventListener("storage", handler);
-    return () => window.removeEventListener("storage", handler);
-  }, []);
-
-  const allSrcs: string[] = adminImages.length > 0
-    ? adminImages.map((img) => img.url)
-    : DEFAULT_MARQUEE_SRCS as unknown as string[];
-  const doubled = [...allSrcs, ...allSrcs];
-
-  return (
-    <div className="overflow-hidden rounded-2xl relative mt-6">
-      <div className="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #0D0D1A, transparent)" }} />
-      <div className="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #0D0D1A, transparent)" }} />
-      <div className="flex items-center gap-3 mb-4">
-        <div className="h-px flex-1" style={{ background: "rgba(232,160,32,0.2)" }} />
-        <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "12px", fontWeight: 700, color: "#C47B1A", whiteSpace: "nowrap" }}>
-          ⚡ أحدث الأعمال
-        </span>
-        <div className="h-px flex-1" style={{ background: "rgba(232,160,32,0.2)" }} />
-      </div>
-      <div style={{ display: "flex", gap: "12px", animation: "marqueeScrollGallery 32s linear infinite", width: "max-content" }}>
-        {doubled.map((src, i) => (
-          <div key={i} style={{ width: "200px", height: "130px", borderRadius: "12px", overflow: "hidden", flexShrink: 0, border: "1px solid rgba(232,160,32,0.15)", boxShadow: "0 4px 16px rgba(0,0,0,0.3)" }}>
-            <img src={src as unknown as string} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-          </div>
-        ))}
-      </div>
-      <style>{`@keyframes marqueeScrollGallery { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }`}</style>
-    </div>
-  );
-}
 
 // ---- Category badge color map ----
 const CATEGORY_COLORS: Record<string, string> = {
@@ -406,10 +363,6 @@ export default function GalleryPage() {
           </div>
         )}
 
-        {/* Marquee bottom strip */}
-        <div className="mt-16">
-          <MarqueeStrip />
-        </div>
       </main>
 
       {/* Lightbox */}

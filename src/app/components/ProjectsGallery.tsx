@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { X, ZoomIn, ChevronRight, ChevronLeft, ArrowLeft } from "lucide-react";
-import { getMarqueeImages, getProjectImages, type MarqueeImage, type ProjectImage } from "../../lib/store";
+import { getProjectImages, type ProjectImage } from "../../lib/store";
 
 import img14 from "../../imports/________________1__14.jpg";
 import img15 from "../../imports/________________1__15.jpg";
@@ -9,7 +9,6 @@ import img16 from "../../imports/________________1__16.jpg";
 import img17 from "../../imports/________________1__17.jpg";
 import img18 from "../../imports/________________1__18.jpg";
 import img19 from "../../imports/________________1__19.jpg";
-import img20 from "../../imports/________________1__20.jpg";
 
 const STATIC_PROJECTS: ProjectImage[] = [
   { id: "s1", url: img14 as unknown as string, title: "أعمال الأساسات والحديد", category: "الأساسات والخوازيق", desc: "أعمال حديد التسليح وتشكيل القواعد الخرسانية لمشاريع متعددة في الدمام", uploadedAt: "" },
@@ -19,97 +18,6 @@ const STATIC_PROJECTS: ProjectImage[] = [
   { id: "s5", url: img18 as unknown as string, title: "المباني التجارية والمستودعات", category: "مباني تجارية", desc: "إنشاء المباني التجارية ومحطات الوقود والمستودعات", uploadedAt: "" },
   { id: "s6", url: img19 as unknown as string, title: "الفلل والوحدات السكنية", category: "مباني سكنية", desc: "تشييد فلل ووحدات سكنية متكاملة من الهيكل حتى التسليم", uploadedAt: "" },
 ];
-
-/* ---------- Marquee ---------- */
-const DEFAULT_MARQUEE_SRCS = [img14, img15, img16, img17, img18, img19, img20];
-
-function MarqueeStrip() {
-  const [adminImages, setAdminImages] = useState<MarqueeImage[]>([]);
-
-  useEffect(() => {
-    const load = () => setAdminImages(getMarqueeImages());
-    load();
-    const handler = (e: StorageEvent) => { if (e.key === "ub_marquee_images") load(); };
-    window.addEventListener("storage", handler);
-    return () => window.removeEventListener("storage", handler);
-  }, []);
-
-  const allSrcs: string[] =
-    adminImages.length > 0
-      ? adminImages.map((img) => img.url)
-      : DEFAULT_MARQUEE_SRCS as unknown as string[];
-
-  const doubled = [...allSrcs, ...allSrcs];
-
-  return (
-    <div className="mt-10 overflow-hidden rounded-2xl" style={{ position: "relative" }}>
-      {/* Fade edges */}
-      <div
-        className="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(to left, #EDE8E0, transparent)" }}
-      />
-      <div
-        className="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(to right, #EDE8E0, transparent)" }}
-      />
-
-      {/* Label */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="h-px flex-1" style={{ background: "rgba(232,160,32,0.3)" }} />
-        <span
-          style={{
-            fontFamily: "Tajawal, sans-serif",
-            fontSize: "12px",
-            fontWeight: 700,
-            color: "#C47B1A",
-            letterSpacing: "0.08em",
-            whiteSpace: "nowrap",
-          }}
-        >
-          ⚡ أحدث الأعمال — يُدار عبر لوحة التحكم
-        </span>
-        <div className="h-px flex-1" style={{ background: "rgba(232,160,32,0.3)" }} />
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          gap: "12px",
-          animation: "marqueeScroll 28s linear infinite",
-          width: "max-content",
-        }}
-      >
-        {doubled.map((src, i) => (
-          <div
-            key={i}
-            style={{
-              width: "200px",
-              height: "130px",
-              borderRadius: "12px",
-              overflow: "hidden",
-              flexShrink: 0,
-              border: "1px solid rgba(232,160,32,0.2)",
-              boxShadow: "0 4px 16px rgba(26,26,46,0.08)",
-            }}
-          >
-            <img
-              src={src}
-              alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            />
-          </div>
-        ))}
-      </div>
-
-      <style>{`
-        @keyframes marqueeScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-    </div>
-  );
-}
 
 /* ---------- Main Gallery (Homepage Preview) ---------- */
 export function ProjectsGallery() {
@@ -311,10 +219,6 @@ export function ProjectsGallery() {
           ))}
         </motion.div>
 
-        {/* Marquee — last row / admin-managed */}
-        <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.7, delay: 0.7 }}>
-          <MarqueeStrip />
-        </motion.div>
       </div>
 
       {/* Lightbox */}
