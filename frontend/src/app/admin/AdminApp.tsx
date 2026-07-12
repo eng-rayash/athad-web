@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router";
 import {
   LayoutDashboard, Images, Sliders, Building2, Wrench, Users, Settings, LogOut, ExternalLink, Menu, X, Upload, Trash2, Plus, Save, RefreshCw, CheckCircle, AlertCircle, Phone, Mail, MapPin,
 } from "lucide-react";
-import { useMarqueeImages, useCompanyInfo, useProjectImages } from "../../lib/store";
+import { useMarqueeImages, useCompanyInfo, useProjectImages, PROJECT_CATEGORIES } from "../../lib/store";
 import { uploadToImageKit } from "../../lib/imagekit";
 import { LogoMark } from "../components/Logo";
 
@@ -270,14 +270,15 @@ function ProjectsManager() {
   const { images, add, remove } = useProjectImages();
   const [uploading, setUploading] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
-  const [form, setForm] = useState({ title: "", category: "مباني سكنية", desc: "" });
+  const [form, setForm] = useState({ title: "", category: "أعمال الحفر والترابية", desc: "" });
 
   const showToast = (msg: string, type: "success" | "error") => {
     setToast({ msg, type });
     setTimeout(() => setToast(null), 3000);
   };
 
-  const categories = ["أساسات", "هياكل", "مباني سكنية", "تجاري", "متنوعة"];
+  // Exclude "الكل" from upload options
+  const categories = PROJECT_CATEGORIES.filter(c => c !== "الكل");
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);

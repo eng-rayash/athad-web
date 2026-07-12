@@ -13,7 +13,8 @@ const navLinks = [
   { href: "#contact", label: "تواصل معنا" },
 ];
 
-export function Navbar() {
+/** dark prop: used when Navbar is placed on a dark background (gallery page) */
+export function Navbar({ dark = false }: { dark?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -23,30 +24,40 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const isGalleryPage = typeof window !== "undefined" && window.location.hash.startsWith("#/gallery");
+
   const handleNav = (href: string) => {
     setMenuOpen(false);
+    if (isGalleryPage) {
+      // Navigate back to home then scroll
+      window.location.href = `/#/${href}`;
+      return;
+    }
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const textColor = dark && !scrolled ? "#F8F5F0" : "#1A1A2E";
+  const bgScrolled = dark
+    ? "backdrop-blur-xl bg-[rgba(10,10,22,0.92)] shadow-lg border-b border-[rgba(232,160,32,0.15)]"
+    : "backdrop-blur-xl bg-white/85 shadow-lg border-b border-[rgba(232,160,32,0.2)]";
 
   return (
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "backdrop-blur-xl bg-white/85 shadow-lg border-b border-[rgba(232,160,32,0.2)]" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? bgScrolled : "bg-transparent"}`}
       style={{ direction: "rtl" }}
     >
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
         {/* Logo */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+        <a
+          href="/#/"
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 0, textDecoration: "none" }}
         >
-          <Logo size="sm" />
-        </button>
+          <Logo size="sm" dark={dark && !scrolled} />
+        </a>
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-5">
@@ -59,21 +70,31 @@ export function Navbar() {
                 fontFamily: "Tajawal, sans-serif",
                 fontWeight: 600,
                 fontSize: "14px",
-                color: "#1A1A2E",
+                color: textColor,
                 background: "none",
                 border: "none",
                 cursor: "pointer",
               }}
             >
               {link.label}
-              {link.href === "#projects" && (
-                <span
-                  className="absolute -bottom-0.5 right-0 left-0 h-0.5 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-                  style={{ background: "linear-gradient(90deg, #E8A020, #C47B1A)" }}
-                />
-              )}
             </button>
           ))}
+          {/* Gallery page link */}
+          <a
+            href="/#/gallery"
+            className="relative flex items-center gap-1 px-3 py-1.5 rounded-lg transition-all duration-200"
+            style={{
+              fontFamily: "Tajawal, sans-serif",
+              fontWeight: 700,
+              fontSize: "13px",
+              color: "#E8A020",
+              textDecoration: "none",
+              background: "rgba(232,160,32,0.1)",
+              border: "1px solid rgba(232,160,32,0.25)",
+            }}
+          >
+            ✦ معرض الأعمال
+          </a>
         </div>
 
         {/* CTA */}
@@ -97,7 +118,7 @@ export function Navbar() {
         <button
           className="lg:hidden p-2 rounded-lg"
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ color: "#1A1A2E", background: "none", border: "none", cursor: "pointer" }}
+          style={{ color: textColor, background: "none", border: "none", cursor: "pointer" }}
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -110,22 +131,27 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden backdrop-blur-xl bg-white/95 border-t border-[rgba(232,160,32,0.2)]"
+            className="lg:hidden border-t"
+            style={{
+              backdropFilter: "blur(24px)",
+              background: dark ? "rgba(10,10,22,0.97)" : "rgba(255,255,255,0.97)",
+              borderColor: dark ? "rgba(232,160,32,0.15)" : "rgba(232,160,32,0.2)",
+            }}
           >
             <div className="px-6 py-4 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleNav(link.href)}
-                  className="py-3 text-right border-b border-gray-100 last:border-0 hover:text-[#E8A020] transition-colors"
+                  className="py-3 text-right hover:text-[#E8A020] transition-colors"
                   style={{
                     fontFamily: "Tajawal, sans-serif",
-                    fontWeight: link.href === "#projects" ? 700 : 500,
+                    fontWeight: 500,
                     fontSize: "16px",
-                    color: link.href === "#projects" ? "#C47B1A" : "#1A1A2E",
+                    color: dark ? "#D0D0E0" : "#1A1A2E",
                     background: "none",
                     border: "none",
-                    borderBottom: "1px solid #f3f3f3",
+                    borderBottom: dark ? "1px solid rgba(255,255,255,0.06)" : "1px solid #f3f3f3",
                     cursor: "pointer",
                     textAlign: "right",
                   }}
@@ -133,6 +159,24 @@ export function Navbar() {
                   {link.label}
                 </button>
               ))}
+              <a
+                href="/#/gallery"
+                onClick={() => setMenuOpen(false)}
+                className="py-3 text-right hover:text-[#E8A020] transition-colors"
+                style={{
+                  fontFamily: "Tajawal, sans-serif",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                  color: "#E8A020",
+                  textDecoration: "none",
+                  display: "block",
+                  borderTop: "1px solid rgba(232,160,32,0.2)",
+                  paddingTop: "12px",
+                  marginTop: "4px",
+                }}
+              >
+                ✦ معرض الأعمال
+              </a>
             </div>
           </motion.div>
         )}

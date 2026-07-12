@@ -28,7 +28,42 @@ export interface ProjectImage {
   desc: string;
   uploadedAt: string;
   migratedToIK?: boolean;
+  order?: number;
 }
+
+/** قائمة تصنيفات أعمال المقاولات الشاملة */
+export const PROJECT_CATEGORIES = [
+  "الكل",
+  // أعمال البنية الأساسية
+  "أعمال الحفر والترابية",
+  "الأساسات والخوازيق",
+  "الهياكل الخرسانية",
+  "الهياكل المعدنية",
+  // المباني
+  "مباني سكنية",
+  "مباني تجارية",
+  "مستودعات وصناعية",
+  "مساجد ومبانٍ حكومية",
+  // أعمال التشطيب والتجهيز
+  "التشطيبات الداخلية",
+  "الواجهات والتشطيب الخارجي",
+  "أعمال الديكور",
+  "الأرضيات والبلاط",
+  // الأنظمة والتمديدات
+  "الكهرباء والإنارة",
+  "السباكة وصرف المياه",
+  "التكييف والتهوية",
+  "الإطفاء والإنذار",
+  // الأعمال الخارجية
+  "المسابح والملاحق",
+  "أعمال الطرق والأرصفة",
+  "تنسيق المواقع",
+  // متنوع
+  "صيانة وترميم",
+  "أعمال متنوعة",
+] as const;
+
+export type ProjectCategory = typeof PROJECT_CATEGORIES[number];
 
 const DEFAULT_COMPANY: CompanyInfo = {
   nameAr: "شركة اتحاد البناء للمقاولات العامة",
@@ -127,6 +162,11 @@ export function useLocalValue(key: string, def: string) {
 /** Read marquee images synchronously (for non-admin components) */
 export function getMarqueeImages(): MarqueeImage[] {
   return readLS<MarqueeImage[]>("ub_marquee_images", []);
+}
+
+/** Read project images synchronously (for non-admin components) */
+export function getProjectImages(): ProjectImage[] {
+  return readLS<ProjectImage[]>("ub_project_images", []);
 }
 
 /** Read company info synchronously */

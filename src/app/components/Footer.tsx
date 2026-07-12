@@ -11,6 +11,9 @@ const quickLinks = [
   { href: "#contact", label: "تواصل معنا" },
 ];
 
+const galleryLink = { href: "/#/gallery", label: "✦ معرض الأعمال" };
+
+
 export function Footer() {
   const handleNav = (href: string) => {
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
@@ -89,7 +92,24 @@ export function Footer() {
                   {link.label}
                 </button>
               ))}
+              {/* Gallery page link */}
+              <a
+                href={galleryLink.href}
+                className="block w-full text-right transition-colors duration-200 hover:text-[#E8A020] mt-1 pt-2"
+                style={{
+                  fontFamily: "Tajawal, sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#E8A020",
+                  textDecoration: "none",
+                  borderTop: "1px solid rgba(232,160,32,0.15)",
+                  display: "block",
+                }}
+              >
+                {galleryLink.label}
+              </a>
             </div>
+
           </div>
 
           {/* Column 3 — Contact */}

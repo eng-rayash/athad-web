@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
-import { X, ZoomIn, ChevronRight, ChevronLeft } from "lucide-react";
-import { getMarqueeImages, type MarqueeImage } from "../../lib/store";
+import { X, ZoomIn, ChevronRight, ChevronLeft, ArrowLeft } from "lucide-react";
+import { getMarqueeImages, getProjectImages, type MarqueeImage, type ProjectImage } from "../../lib/store";
 
 import img14 from "../../imports/________________1__14.jpg";
 import img15 from "../../imports/________________1__15.jpg";
@@ -11,17 +11,14 @@ import img18 from "../../imports/________________1__18.jpg";
 import img19 from "../../imports/________________1__19.jpg";
 import img20 from "../../imports/________________1__20.jpg";
 
-const projects = [
-  { id: 1, src: img14, title: "أعمال الأساسات والحديد", subtitle: "Foundation & Reinforcement Works", category: "أساسات", desc: "أعمال حديد التسليح وتشكيل القواعد الخرسانية لمشاريع متعددة في الدمام", featured: true },
-  { id: 2, src: img15, title: "أعمال الخرسانة والهياكل", subtitle: "Concrete & Structural Works", category: "هياكل", desc: "صب الخرسانة وتنفيذ الهياكل الرئيسية بمعدات ضخ حديثة", featured: false },
-  { id: 3, src: img16, title: "الهياكل المعدنية", subtitle: "Steel Frame Structures", category: "هياكل", desc: "تصنيع وتركيب الهياكل المعدنية للمستودعات والمنشآت الصناعية", featured: false },
-  { id: 4, src: img17, title: "الأعمدة والمباني السكنية", subtitle: "Columns & Residential Buildings", category: "مباني سكنية", desc: "تنفيذ أعمال الأعمدة الخرسانية وإنشاء المباني السكنية", featured: false },
-  { id: 5, src: img18, title: "المباني التجارية والمستودعات", subtitle: "Commercial Buildings & Warehouses", category: "تجاري", desc: "إنشاء المباني التجارية ومحطات الوقود والمستودعات", featured: false },
-  { id: 6, src: img19, title: "الفلل والوحدات السكنية", subtitle: "Villas & Residential Units", category: "مباني سكنية", desc: "تشييد فلل ووحدات سكنية متكاملة من الهيكل حتى التسليم", featured: false },
-  { id: 7, src: img20, title: "مشاريع متنوعة", subtitle: "Diverse Construction Projects", category: "متنوعة", desc: "مجموعة متنوعة من المشاريع تشمل المساجد والمباني العامة والمستودعات", featured: false },
+const STATIC_PROJECTS: ProjectImage[] = [
+  { id: "s1", url: img14 as unknown as string, title: "أعمال الأساسات والحديد", category: "الأساسات والخوازيق", desc: "أعمال حديد التسليح وتشكيل القواعد الخرسانية لمشاريع متعددة في الدمام", uploadedAt: "" },
+  { id: "s2", url: img15 as unknown as string, title: "أعمال الخرسانة والهياكل", category: "الهياكل الخرسانية", desc: "صب الخرسانة وتنفيذ الهياكل الرئيسية بمعدات ضخ حديثة", uploadedAt: "" },
+  { id: "s3", url: img16 as unknown as string, title: "الهياكل المعدنية", category: "الهياكل المعدنية", desc: "تصنيع وتركيب الهياكل المعدنية للمستودعات والمنشآت الصناعية", uploadedAt: "" },
+  { id: "s4", url: img17 as unknown as string, title: "الأعمدة والمباني السكنية", category: "مباني سكنية", desc: "تنفيذ أعمال الأعمدة الخرسانية وإنشاء المباني السكنية", uploadedAt: "" },
+  { id: "s5", url: img18 as unknown as string, title: "المباني التجارية والمستودعات", category: "مباني تجارية", desc: "إنشاء المباني التجارية ومحطات الوقود والمستودعات", uploadedAt: "" },
+  { id: "s6", url: img19 as unknown as string, title: "الفلل والوحدات السكنية", category: "مباني سكنية", desc: "تشييد فلل ووحدات سكنية متكاملة من الهيكل حتى التسليم", uploadedAt: "" },
 ];
-
-const categories = ["الكل", "أساسات", "هياكل", "مباني سكنية", "تجاري", "متنوعة"];
 
 /* ---------- Marquee ---------- */
 const DEFAULT_MARQUEE_SRCS = [img14, img15, img16, img17, img18, img19, img20];
@@ -42,7 +39,6 @@ function MarqueeStrip() {
       ? adminImages.map((img) => img.url)
       : DEFAULT_MARQUEE_SRCS as unknown as string[];
 
-  // Duplicate for seamless loop
   const doubled = [...allSrcs, ...allSrcs];
 
   return (
@@ -98,7 +94,7 @@ function MarqueeStrip() {
           >
             <img
               src={src}
-              alt={`project-${i}`}
+              alt=""
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
           </div>
@@ -115,14 +111,31 @@ function MarqueeStrip() {
   );
 }
 
-/* ---------- Main Gallery ---------- */
+/* ---------- Main Gallery (Homepage Preview) ---------- */
 export function ProjectsGallery() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [activeCategory, setActiveCategory] = useState("الكل");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [displayProjects, setDisplayProjects] = useState<ProjectImage[]>(STATIC_PROJECTS);
 
-  const filtered = activeCategory === "الكل" ? projects : projects.filter((p) => p.category === activeCategory);
+  useEffect(() => {
+    const load = () => {
+      const adminImgs = getProjectImages();
+      setDisplayProjects(adminImgs.length > 0 ? adminImgs : STATIC_PROJECTS);
+    };
+    load();
+    const handler = (e: StorageEvent) => { if (e.key === "ub_project_images") load(); };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
+  }, []);
+
+  const availCats = ["الكل", ...Array.from(new Set(displayProjects.map((p) => p.category)))];
+
+  const filtered = (activeCategory === "الكل"
+    ? displayProjects
+    : displayProjects.filter((p) => p.category === activeCategory)
+  ).slice(0, 6); // Max 6 items on home
 
   const openLightbox = (i: number) => setLightboxIndex(i);
   const closeLightbox = () => setLightboxIndex(null);
@@ -182,7 +195,7 @@ export function ProjectsGallery() {
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{ fontFamily: "Noto Sans Arabic, sans-serif", fontSize: "16px", color: "#4A4A6A", maxWidth: "500px", margin: "0 auto" }}
           >
-            نماذج من مشاريعنا المنجزة في مجال الإنشاءات والبناء
+            نماذج من مشاريعنا المنجزة في مجال الإنشاءات والبناء والتشطيبات
           </motion.p>
         </div>
 
@@ -193,7 +206,7 @@ export function ProjectsGallery() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-wrap justify-center gap-3 mb-10"
         >
-          {categories.map((cat) => (
+          {availCats.slice(0, 7).map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -232,7 +245,7 @@ export function ProjectsGallery() {
               whileHover={{ y: -4 }}
             >
               <img
-                src={project.src}
+                src={project.url}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -252,6 +265,35 @@ export function ProjectsGallery() {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Gallery CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="text-center mt-10"
+        >
+          <a
+            href="/#/gallery"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            style={{
+              background: "linear-gradient(135deg, #1A1A2E, #0D0D1A)",
+              color: "white",
+              fontFamily: "Tajawal, sans-serif",
+              fontWeight: 700,
+              fontSize: "16px",
+              textDecoration: "none",
+              border: "1px solid rgba(232,160,32,0.3)",
+              boxShadow: "0 8px 32px rgba(26,26,46,0.2)",
+            }}
+          >
+            <span>عرض معرض الأعمال كاملاً</span>
+            <ArrowLeft size={18} color="#E8A020" style={{ transform: "rotate(180deg)" }} />
+          </a>
+          <p style={{ fontFamily: "Noto Sans Arabic, sans-serif", fontSize: "13px", color: "#8A9BB0", marginTop: "10px" }}>
+            {displayProjects.length > 6 ? `${displayProjects.length - 6} مشروع إضافي في المعرض` : "تصفح جميع التصنيفات والمشاريع"}
+          </p>
+        </motion.div>
 
         {/* Stats */}
         <motion.div
@@ -303,7 +345,7 @@ export function ProjectsGallery() {
               className="relative max-w-5xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <img src={filtered[lightboxIndex].src} alt={filtered[lightboxIndex].title} className="w-full rounded-2xl" style={{ maxHeight: "75vh", objectFit: "contain" }} />
+              <img src={filtered[lightboxIndex].url} alt={filtered[lightboxIndex].title} className="w-full rounded-2xl" style={{ maxHeight: "75vh", objectFit: "contain" }} />
               <div className="mt-4 text-center rounded-xl p-4" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(232,160,32,0.2)" }}>
                 <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 800, fontSize: "1.2rem", color: "white", marginBottom: "4px" }}>{filtered[lightboxIndex].title}</h3>
                 <p style={{ fontFamily: "Noto Sans Arabic, sans-serif", fontSize: "14px", color: "#8A9BB0" }}>{filtered[lightboxIndex].desc}</p>
