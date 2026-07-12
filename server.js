@@ -94,6 +94,84 @@ app.post("/api/upload", upload.single("file"), async (req, res, next) => {
   }
 });
 
+// GET /api/local-images
+app.get("/api/local-images", (_req, res, next) => {
+  try {
+    const localPhotosDir = path.resolve(__dirname, "صور الاعمال");
+    if (!fs.existsSync(localPhotosDir)) {
+      return res.json({ files: [] });
+    }
+    const files = fs.readdirSync(localPhotosDir)
+      .filter(file => {
+        const ext = path.extname(file).toLowerCase();
+        return [".jpg", ".jpeg", ".png", ".webp", ".gif"].includes(ext);
+      });
+    return res.json({ files });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /api/migrate-image
+app.post("/api/migrate-image", async (req, res, next) => {
+  try {
+    const { filename, category } = req.body;
+    if (!filename) {
+      return res.status(400).json({ error: "Filename is required" });
+    }
+
+    const localPhotosDir = path.resolve(__dirname, "صور الاعمال");
+    const filePath = path.join(localPhotosDir, filename);
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: "Local file not found" });
+    }
+
+    const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
+    if (!privateKey || privateKey === "your_private_key_here") {
+      return res.status(500).json({ error: "IMAGEKIT_PRIVATE_KEY not configured or using placeholder in .env" });
+    }
+
+    const fileBuffer = fs.readFileSync(filePath);
+    const mimeType = filename.endsWith(".png") ? "image/png" : filename.endsWith(".webp") ? "image/webp" : "image/jpeg";
+
+    const credentials = Buffer.from(`${privateKey}:`).toString("base64");
+    const form = new FormData();
+    form.append("file", fileBuffer, {
+      filename: filename,
+      contentType: mimeType,
+    });
+    form.append("fileName", `migrated_${Date.now()}_${filename}`);
+    form.append("folder", "projects");
+
+    const ikRes = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${credentials}`,
+        ...form.getHeaders(),
+      },
+      body: form,
+    });
+
+    if (!ikRes.ok) {
+      const text = await ikRes.text();
+      return res.status(ikRes.status).json({ error: `ImageKit error: ${text}` });
+    }
+
+    const data = await ikRes.json();
+    return res.json({
+      url: data.url,
+      fileId: data.fileId,
+      name: data.name,
+      title: filename.replace(/\.[^/.]+$/, "").replace(/-/g, " "),
+      category: category || "أعمال متنوعة",
+      desc: "تم استيرادها تلقائياً من مجلد صور الأعمال المحلي"
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // ─── Frontend Integration ──────────────────────────────────────────────────────
 
 const isProd = process.env.NODE_ENV === "production" || !fs.existsSync(path.resolve(__dirname, "vite.config.ts"));

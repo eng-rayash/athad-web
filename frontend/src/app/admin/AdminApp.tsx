@@ -300,6 +300,75 @@ function ProjectsManager() {
     }
   };
 
+  const [localFiles, setLocalFiles] = useState<string[]>([]);
+  const [migrating, setMigrating] = useState(false);
+  const [migrateProgress, setMigrateProgress] = useState(0);
+  const [migrateTotal, setMigrateTotal] = useState(0);
+  const [migrateCategory, setMigrateCategory] = useState("أعمال متنوعة");
+
+  const fetchLocalFiles = async () => {
+    try {
+      const res = await fetch("/api/local-images");
+      if (res.ok) {
+        const data = await res.json();
+        const notUploaded = data.files.filter((f: string) => {
+          return !images.some(img => img.url.includes(f));
+        });
+        setLocalFiles(notUploaded);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocalFiles();
+  }, [images]);
+
+  const handleMigrateAll = async () => {
+    if (localFiles.length === 0) return;
+    setMigrating(true);
+    setMigrateTotal(localFiles.length);
+    setMigrateProgress(0);
+
+    let successCount = 0;
+    let failCount = 0;
+
+    for (let i = 0; i < localFiles.length; i++) {
+      const filename = localFiles[i];
+      try {
+        const res = await fetch("/api/migrate-image", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ filename, category: migrateCategory }),
+        });
+
+        if (res.ok) {
+          const newImg = await res.json();
+          add(newImg);
+          successCount++;
+        } else {
+          failCount++;
+        }
+      } catch (err) {
+        failCount++;
+      }
+      setMigrateProgress(i + 1);
+    }
+
+    setMigrating(false);
+    if (successCount > 0) {
+      showToast(`تم استيراد ${successCount} صورة بنجاح!`, "success");
+    }
+    if (failCount > 0) {
+      showToast(`فشل استيراد ${failCount} صورة.`, "error");
+    }
+    fetchLocalFiles();
+  };
+
+
   return (
     <div className="space-y-6">
       {toast && <Toast msg={toast.msg} type={toast.type} />}
@@ -307,6 +376,51 @@ function ProjectsManager() {
         <h1 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 900, fontSize: "1.6rem", color: "#F8F5F0" }}>صور المشاريع</h1>
         <p style={{ fontFamily: "Tajawal, sans-serif", fontSize: "14px", color: "#4A4A6A" }}>رفع وإدارة صور مشاريع الشركة عبر ImageKit</p>
       </div>
+
+      {localFiles.length > 0 && (
+        <div className="rounded-2xl p-6 space-y-4" style={{ background: "rgba(232,160,32,0.06)", border: "1px solid rgba(232,160,32,0.3)" }}>
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div>
+              <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#E8A020" }}>📂 مزامنة صور مجلد الأعمال المحلي</h3>
+              <p style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#8A9BB0", marginTop: "4px" }}>
+                تم العثور على {localFiles.length} صورة جديدة غير مرفوعة في مجلد "صور الاعمال".
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <select
+                value={migrateCategory}
+                onChange={(e) => setMigrateCategory(e.target.value)}
+                className="px-4 py-2 rounded-xl outline-none"
+                style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", background: "#1A1A2E", border: "1px solid rgba(232,160,32,0.3)", color: "#F8F5F0", cursor: "pointer" }}
+              >
+                {categories.map((c) => <option key={c}>{c}</option>)}
+              </select>
+              <button
+                onClick={handleMigrateAll}
+                disabled={migrating}
+                className="flex items-center gap-2 py-2 px-5 rounded-xl transition-all"
+                style={{
+                  background: migrating ? "rgba(232,160,32,0.3)" : "linear-gradient(135deg, #E8A020, #C47B1A)",
+                  color: "white",
+                  fontFamily: "Tajawal, sans-serif",
+                  fontWeight: 700,
+                  fontSize: "13px",
+                  border: "none",
+                  cursor: migrating ? "not-allowed" : "pointer"
+                }}
+              >
+                {migrating ? <RefreshCw size={14} className="animate-spin" /> : null}
+                {migrating ? `جاري الرفع... (${migrateProgress}/${migrateTotal})` : "بدء المزامنة والرفع"}
+              </button>
+            </div>
+          </div>
+          {migrating && (
+            <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden mt-2">
+              <div className="bg-[#E8A020] h-full transition-all duration-300" style={{ width: `${(migrateProgress / migrateTotal) * 100}%` }} />
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="rounded-2xl p-6 space-y-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(232,160,32,0.2)" }}>
         <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 700, fontSize: "1rem", color: "#F8F5F0" }}>رفع مشروع جديد</h3>
