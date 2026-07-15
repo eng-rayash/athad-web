@@ -138,10 +138,10 @@ export function Footer() {
                   0500988098
                 </span>
               </a>
-              <a href="mailto:Abutarekkk@hotmail.com" className="flex items-center gap-3" style={{ textDecoration: "none" }}>
+              <a href="mailto:alrsasabwahmd7@gmail.com" className="flex items-center gap-3" style={{ textDecoration: "none" }}>
                 <Mail size={16} color="#E8A020" />
                 <span style={{ fontFamily: "Inter, sans-serif", fontSize: "13px", color: "#8A9BB0" }}>
-                  Abutarekkk@hotmail.com
+                  alrsasabwahmd7@gmail.com
                 </span>
               </a>
             </div>

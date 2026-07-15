@@ -95,7 +95,7 @@ export function ContactSection() {
               {[
                 { icon: MapPin, label: "العنوان", value: "الدمام — شارع الملك سعود", color: "#E8A020", href: undefined },
                 { icon: Phone, label: "رقم الجوال", value: "0500988098", color: "#8A9BB0", href: "tel:0500988098" },
-                { icon: Mail, label: "البريد الإلكتروني", value: "Abutarekkk@hotmail.com", color: "#C47B1A", href: "mailto:Abutarekkk@hotmail.com" },
+                { icon: Mail, label: "البريد الإلكتروني", value: "alrsasabwahmd7@gmail.com", color: "#C47B1A", href: "mailto:alrsasabwahmd7@gmail.com" },
                 { icon: Building2, label: "السجل التجاري", value: "2050125097", color: "#B5956A", href: undefined },
               ].map((item) => {
                 const Icon = item.icon;

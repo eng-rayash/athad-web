@@ -34,7 +34,7 @@ const DEFAULT_COMPANY: CompanyInfo = {
   nameAr: "شركة اتحاد البناء للمقاولات العامة",
   nameEn: "Union Building General Contracting Company",
   phone: "0500988098",
-  email: "Abutarekkk@hotmail.com",
+  email: "alrsasabwahmd7@gmail.com",
   address: "الدمام — شارع الملك سعود",
   commercialReg: "2050125097",
   whatsapp: "966500988098",
