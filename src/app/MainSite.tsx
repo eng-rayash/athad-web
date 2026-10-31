@@ -17,13 +17,14 @@ export default function MainSite() {
   useEffect(() => {
     document.documentElement.setAttribute("dir", "rtl");
     document.documentElement.setAttribute("lang", "ar");
+    document.documentElement.setAttribute("translate", "no");
+    document.documentElement.classList.add("notranslate");
     document.title = "شركة اتحاد البناء للمقاولات العامة — الدمام، المملكة العربية السعودية";
     document.documentElement.style.scrollBehavior = "smooth";
-    return () => { document.documentElement.removeAttribute("dir"); };
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ fontFamily: "Tajawal, Noto Sans Arabic, sans-serif", overflowX: "hidden" }}>
+    <div className="min-h-screen notranslate" translate="no" style={{ fontFamily: "Tajawal, Noto Sans Arabic, sans-serif", overflowX: "hidden" }}>
       <Navbar />
       <main>
         <HeroSection />

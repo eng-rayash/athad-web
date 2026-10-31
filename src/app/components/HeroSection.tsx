@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBgWebp from "@/assets/hero-bg.webp";
+import heroBgJpg from "@/assets/hero-bg.jpg";
 
 interface Particle {
   x: number;
@@ -117,11 +118,17 @@ export function HeroSection() {
     >
       {/* Hero Background Image */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={heroBg}
-          alt="شركة اتحاد البناء للمقاولات العامة"
-          className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
-        />
+        <picture className="w-full h-full block">
+          <source srcSet={heroBgWebp} type="image/webp" />
+          <img
+            src={heroBgJpg}
+            alt="شركة اتحاد البناء للمقاولات العامة"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
+          />
+        </picture>
         {/* Soft luxury gradient overlay for maximum readability and prestige */}
         <div
           className="absolute inset-0"
