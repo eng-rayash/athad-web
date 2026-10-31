@@ -63,9 +63,9 @@ export function Footer() {
           <div>
             <h4
               style={{
-                fontFamily: "Tajawal, sans-serif",
+                fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
                 fontWeight: 700,
-                fontSize: "1rem",
+                fontSize: "1.05rem",
                 color: "#F8F5F0",
                 marginBottom: "1.25rem",
               }}
@@ -116,9 +116,9 @@ export function Footer() {
           <div>
             <h4
               style={{
-                fontFamily: "Tajawal, sans-serif",
+                fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
                 fontWeight: 700,
-                fontSize: "1rem",
+                fontSize: "1.05rem",
                 color: "#F8F5F0",
                 marginBottom: "1.25rem",
               }}
@@ -141,7 +141,7 @@ export function Footer() {
               <a href="mailto:alrsasabwahmd7@gmail.com" className="flex items-center gap-3" style={{ textDecoration: "none" }}>
                 <Mail size={16} color="#E8A020" />
                 <span style={{ fontFamily: "Inter, sans-serif", fontSize: "13px", color: "#8A9BB0" }}>
-                  alrsasabwahmd7@gmail.com
+                  Abutarekkk@hotmail.com
                 </span>
               </a>
             </div>

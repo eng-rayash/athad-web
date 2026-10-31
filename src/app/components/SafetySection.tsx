@@ -70,16 +70,16 @@ export function SafetySection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
             style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.25)" }}
           >
-            <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#EF4444", fontWeight: 600 }}>
+            <span style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontSize: "14px", color: "#EF4444", fontWeight: 600 }}>
               شراكة استراتيجية
             </span>
           </div>
 
           <h2
             style={{
-              fontFamily: "Tajawal, sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+              fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+              fontWeight: 600,
+              fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)",
               color: "#8A9BB0",
               marginBottom: "0.5rem",
             }}
@@ -88,9 +88,9 @@ export function SafetySection() {
           </h2>
           <h3
             style={{
-              fontFamily: "Tajawal, sans-serif",
+              fontFamily: "maghfira, Tajawal, sans-serif",
               fontWeight: 800,
-              fontSize: "clamp(1.8rem, 4vw, 3rem)",
+              fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
               color: "#F8F5F0",
               marginBottom: "0.5rem",
             }}
@@ -125,9 +125,9 @@ export function SafetySection() {
           >
             <h4
               style={{
-                fontFamily: "Tajawal, sans-serif",
+                fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
                 fontWeight: 700,
-                fontSize: "1.1rem",
+                fontSize: "1.15rem",
                 color: "#F8F5F0",
                 marginBottom: "1.5rem",
               }}
@@ -207,9 +207,9 @@ export function SafetySection() {
             >
               <h4
                 style={{
-                  fontFamily: "Tajawal, sans-serif",
+                  fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
                   fontWeight: 700,
-                  fontSize: "1rem",
+                  fontSize: "1.05rem",
                   color: "#F8F5F0",
                   marginBottom: "1rem",
                 }}
@@ -248,9 +248,9 @@ export function SafetySection() {
             >
               <h4
                 style={{
-                  fontFamily: "Tajawal, sans-serif",
+                  fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
                   fontWeight: 700,
-                  fontSize: "1rem",
+                  fontSize: "1.05rem",
                   color: "#F8F5F0",
                   marginBottom: "1rem",
                 }}
@@ -341,9 +341,9 @@ export function SafetySection() {
             <div className="h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, rgba(232,160,32,0.3))" }} />
             <h4
               style={{
-                fontFamily: "Tajawal, sans-serif",
-                fontWeight: 800,
-                fontSize: "1.15rem",
+                fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+                fontWeight: 700,
+                fontSize: "1.2rem",
                 color: "#F8F5F0",
                 whiteSpace: "nowrap",
               }}

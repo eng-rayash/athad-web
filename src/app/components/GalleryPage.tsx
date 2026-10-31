@@ -116,7 +116,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }: {
         <div className="mt-4 rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(232,160,32,0.2)", backdropFilter: "blur(12px)" }}>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 800, fontSize: "1.2rem", color: "white", marginBottom: "6px" }}>{img.title}</h3>
+              <h3 style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontWeight: 700, fontSize: "1.25rem", color: "white", marginBottom: "6px" }}>{img.title}</h3>
               {img.desc && <p style={{ fontFamily: "Noto Sans Arabic, sans-serif", fontSize: "14px", color: "#8A9BB0", lineHeight: 1.7 }}>{img.desc}</p>}
             </div>
             <span className="px-3 py-1.5 rounded-full flex-shrink-0" style={{ background: `${getCatColor(img.category)}20`, border: `1px solid ${getCatColor(img.category)}40`, fontFamily: "Tajawal, sans-serif", fontSize: "12px", fontWeight: 700, color: getCatColor(img.category), whiteSpace: "nowrap" }}>
@@ -203,7 +203,7 @@ export default function GalleryPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
-            style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 900, fontSize: "clamp(2.2rem, 5vw, 3.5rem)", color: "#F8F5F0", marginBottom: "1rem", lineHeight: 1.2 }}
+            style={{ fontFamily: "maghfira, Tajawal, sans-serif", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 4rem)", color: "#F8F5F0", marginBottom: "1rem", lineHeight: 1.25 }}
           >
             مشاريعنا المنجزة
           </motion.h1>
@@ -338,7 +338,7 @@ export default function GalleryPage() {
 
                     {/* Title */}
                     <div className="absolute bottom-0 right-0 left-0 p-4">
-                      <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 800, fontSize: isFeatured ? "1.1rem" : "0.9rem", color: "white", marginBottom: "4px", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
+                      <h3 style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontWeight: 700, fontSize: isFeatured ? "1.15rem" : "0.95rem", color: "white", marginBottom: "4px", textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
                         {project.title}
                       </h3>
                       {project.desc && (

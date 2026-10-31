@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { ChevronDown } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
 
 interface Particle {
   x: number;
@@ -113,23 +114,36 @@ export function HeroSection() {
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #F8F5F0 0%, #EDE8E0 40%, #F0EBE0 100%)" }}
     >
+      {/* Hero Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={heroBg}
+          alt="شركة اتحاد البناء للمقاولات العامة"
+          className="w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
+        />
+        {/* Soft luxury gradient overlay for maximum readability and prestige */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(248, 245, 240, 0.86) 0%, rgba(248, 245, 240, 0.88) 40%, rgba(248, 245, 240, 0.43) 100%, rgba(248, 245, 240, 0.98) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(232,160,32,0.06) 0%, rgba(26,26,46,0.12) 100%)",
+          }}
+        />
+      </div>
+
       {/* Canvas Background */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ zIndex: 0 }}
-      />
-
-      {/* Gradient overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(248,245,240,0) 0%, rgba(232,160,32,0.04) 50%, rgba(26,26,46,0.08) 100%)",
-          zIndex: 1,
-        }}
+        style={{ zIndex: 1 }}
       />
 
       {/* 3D Architectural accent shape */}
@@ -166,22 +180,22 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 shadow-sm"
           style={{
-            background: "rgba(232,160,32,0.12)",
-            border: "1px solid rgba(232,160,32,0.3)",
-            backdropFilter: "blur(10px)",
+            background: "rgba(255, 255, 255, 0.8)",
+            border: "1px solid rgba(232,160,32,0.35)",
+            backdropFilter: "blur(12px)",
           }}
         >
           <span
             style={{
-              fontFamily: "Tajawal, sans-serif",
-              fontSize: "13px",
+              fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+              fontSize: "14px",
               color: "#C47B1A",
               fontWeight: 600,
             }}
           >
-            🏗️ الدمام — المملكة العربية السعودية
+            الدمام — المملكة العربية السعودية
           </span>
         </motion.div>
 
@@ -191,12 +205,12 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
           style={{
-            fontFamily: "Tajawal, sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            fontFamily: "maghfira, Tajawal, sans-serif",
+            fontWeight: 800,
+            fontSize: "clamp(2.8rem, 6.5vw, 4rem)",
             color: "#1A1A2E",
-            lineHeight: 1.15,
-            marginBottom: "1rem",
+            lineHeight: 1.25,
+            marginBottom: "1.25rem",
           }}
         >
           نبني المستقبل،{" "}
@@ -232,10 +246,11 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.9 }}
           style={{
-            fontFamily: "Tajawal, sans-serif",
-            fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
-            color: "#8A9BB0",
+            fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+            fontSize: "clamp(1rem, 2.2vw, 1.25rem)",
+            color: "#4A4A6A",
             marginBottom: "3rem",
+            fontWeight: 500,
           }}
         >
           شركة اتحاد البناء للمقاولات العامة — الدمام، المملكة العربية السعودية
@@ -254,8 +269,8 @@ export function HeroSection() {
             style={{
               background: "linear-gradient(135deg, #E8A020, #C47B1A)",
               color: "white",
-              fontFamily: "Tajawal, sans-serif",
-              fontWeight: 700,
+              fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+              fontWeight: 600,
               fontSize: "16px",
               border: "none",
               cursor: "pointer",
@@ -269,12 +284,12 @@ export function HeroSection() {
             onClick={scrollToContact}
             className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105"
             style={{
-              background: "rgba(255,255,255,0.65)",
+              background: "rgba(255,255,255,0.85)",
               backdropFilter: "blur(20px)",
               border: "1px solid rgba(232,160,32,0.35)",
               color: "#1A1A2E",
-              fontFamily: "Tajawal, sans-serif",
-              fontWeight: 700,
+              fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+              fontWeight: 600,
               fontSize: "16px",
               cursor: "pointer",
               boxShadow: "0 8px 32px rgba(26,26,46,0.08), inset 0 1px 0 rgba(255,255,255,0.8)",
@@ -313,9 +328,10 @@ export function HeroSection() {
               </div>
               <div
                 style={{
-                  fontFamily: "Tajawal, sans-serif",
-                  fontSize: "13px",
+                  fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+                  fontSize: "14px",
                   color: "#4A4A6A",
+                  fontWeight: 500,
                 }}
               >
                 {stat.label}
@@ -339,7 +355,7 @@ export function HeroSection() {
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-1"
         >
-          <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "12px", color: "#8A9BB0" }}>
+          <span style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontSize: "12px", color: "#8A9BB0" }}>
             اكتشف المزيد
           </span>
           <ChevronDown size={20} color="#E8A020" />

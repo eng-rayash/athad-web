@@ -47,9 +47,9 @@ function AnimatedCounter({ end, label, suffix = "" }: CounterProps) {
       </div>
       <div
         style={{
-          fontFamily: "Tajawal, sans-serif",
+          fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
           fontWeight: 600,
-          fontSize: "14px",
+          fontSize: "15px",
           color: "#4A4A6A",
           marginTop: "8px",
         }}
@@ -90,11 +90,11 @@ export function AboutSection() {
           />
           <span
             style={{
-              fontFamily: "Tajawal, sans-serif",
+              fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
               fontWeight: 600,
               fontSize: "14px",
               color: "#E8A020",
-              letterSpacing: "0.1em",
+              letterSpacing: "0.05em",
             }}
           >
             تعرّف علينا
@@ -109,12 +109,12 @@ export function AboutSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1 }}
               style={{
-                fontFamily: "Tajawal, sans-serif",
-                fontWeight: 900,
-                fontSize: "clamp(2rem, 4vw, 3rem)",
+                fontFamily: "maghfira, Tajawal, sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(2.4rem, 4.5vw, 3.5rem)",
                 color: "#1A1A2E",
                 marginBottom: "1.5rem",
-                lineHeight: 1.2,
+                lineHeight: 1.25,
               }}
             >
               من نحن

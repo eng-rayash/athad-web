@@ -55,7 +55,7 @@ export function EquipmentSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
             style={{ background: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.2)" }}
           >
-            <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#E8A020", fontWeight: 600 }}>
+            <span style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontSize: "14px", color: "#E8A020", fontWeight: 600 }}>
               أصولنا التشغيلية
             </span>
           </motion.div>
@@ -65,9 +65,9 @@ export function EquipmentSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
             style={{
-              fontFamily: "Tajawal, sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(2rem, 4vw, 3rem)",
+              fontFamily: "maghfira, Tajawal, sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(2.4rem, 4.5vw, 3.5rem)",
               color: "#F8F5F0",
             }}
           >
@@ -91,9 +91,9 @@ export function EquipmentSection() {
           >
             <h3
               style={{
-                fontFamily: "Tajawal, sans-serif",
-                fontWeight: 800,
-                fontSize: "1.3rem",
+                fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+                fontWeight: 700,
+                fontSize: "1.35rem",
                 color: "#F8F5F0",
                 marginBottom: "1.5rem",
               }}
@@ -165,9 +165,9 @@ export function EquipmentSection() {
             <div className="flex items-center justify-between mb-6">
               <h3
                 style={{
-                  fontFamily: "Tajawal, sans-serif",
-                  fontWeight: 800,
-                  fontSize: "1.3rem",
+                  fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+                  fontWeight: 700,
+                  fontSize: "1.35rem",
                   color: "#F8F5F0",
                 }}
               >

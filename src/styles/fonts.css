@@ -1,1 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Noto+Sans+Arabic:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Maghfira Font - For Large Arabic Headings (العناوين العربية الكبيرة) */
+@font-face {
+  font-family: 'maghfira';
+  src: url('/fonts/maghfira.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maghfira';
+  src: url('/fonts/maghfira.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ThmanyahSerifText-Medium Font - For Small Headings (العناوين الصغيرة) */
+@font-face {
+  font-family: 'ThmanyahSerifText-Medium';
+  src: url('/fonts/ThmanyahSerifText-Medium.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ThmanyahSerif';
+  src: url('/fonts/ThmanyahSerifText-Medium.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+

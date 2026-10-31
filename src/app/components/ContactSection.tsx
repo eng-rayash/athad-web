@@ -28,7 +28,7 @@ export function ContactSection() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
             style={{ background: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}
           >
-            <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#C47B1A", fontWeight: 600 }}>
+            <span style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontSize: "14px", color: "#C47B1A", fontWeight: 600 }}>
               نحن هنا لمساعدتك
             </span>
           </motion.div>
@@ -37,9 +37,9 @@ export function ContactSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
             style={{
-              fontFamily: "Tajawal, sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(2rem, 4vw, 3rem)",
+              fontFamily: "maghfira, Tajawal, sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(2.4rem, 4.5vw, 3.5rem)",
               color: "#1A1A2E",
             }}
           >
@@ -95,7 +95,7 @@ export function ContactSection() {
               {[
                 { icon: MapPin, label: "العنوان", value: "الدمام — شارع الملك سعود", color: "#E8A020", href: undefined },
                 { icon: Phone, label: "رقم الجوال", value: "0500988098", color: "#8A9BB0", href: "tel:0500988098" },
-                { icon: Mail, label: "البريد الإلكتروني", value: "alrsasabwahmd7@gmail.com", color: "#C47B1A", href: "mailto:alrsasabwahmd7@gmail.com" },
+                { icon: Mail, label: "البريد الإلكتروني", value: "alrsasabwahmd7@gmail.com", color: "#C47B1A", href: "mailto:Abutarekkk@hotmail.com" },
                 { icon: Building2, label: "السجل التجاري", value: "2050125097", color: "#B5956A", href: undefined },
               ].map((item) => {
                 const Icon = item.icon;
@@ -157,8 +157,8 @@ export function ContactSection() {
             >
               <h3
                 style={{
-                  fontFamily: "Tajawal, sans-serif",
-                  fontWeight: 900,
+                  fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
+                  fontWeight: 700,
                   fontSize: "clamp(1.4rem, 3vw, 2rem)",
                   color: "#1A1A2E",
                   marginBottom: "1rem",

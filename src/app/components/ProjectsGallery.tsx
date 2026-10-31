@@ -75,7 +75,7 @@ export function ProjectsGallery() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
             style={{ background: "rgba(232,160,32,0.1)", border: "1px solid rgba(232,160,32,0.25)" }}
           >
-            <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "13px", color: "#C47B1A", fontWeight: 600 }}>
+            <span style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontSize: "14px", color: "#C47B1A", fontWeight: 600 }}>
               أعمالنا السابقة
             </span>
           </motion.div>
@@ -83,7 +83,7 @@ export function ProjectsGallery() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
-            style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 900, fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1A1A2E", marginBottom: "0.75rem" }}
+            style={{ fontFamily: "maghfira, Tajawal, sans-serif", fontWeight: 800, fontSize: "clamp(2.4rem, 4.5vw, 3.5rem)", color: "#1A1A2E", marginBottom: "0.75rem" }}
           >
             معرض مشاريعنا
           </motion.h2>
@@ -110,7 +110,7 @@ export function ProjectsGallery() {
               onClick={() => setActiveCategory(cat)}
               className="px-5 py-2 rounded-xl transition-all duration-300"
               style={{
-                fontFamily: "Tajawal, sans-serif",
+                fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
                 fontWeight: 600,
                 fontSize: "14px",
                 border: "none",
@@ -154,10 +154,10 @@ export function ProjectsGallery() {
                 </div>
               </div>
               <div className="absolute top-4 right-4 px-3 py-1 rounded-full" style={{ background: "rgba(232,160,32,0.9)", backdropFilter: "blur(8px)" }}>
-                <span style={{ fontFamily: "Tajawal, sans-serif", fontSize: "12px", fontWeight: 700, color: "white" }}>{project.category}</span>
+                <span style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontSize: "12px", fontWeight: 700, color: "white" }}>{project.category}</span>
               </div>
               <div className="absolute bottom-0 right-0 left-0 p-5">
-                <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 800, fontSize: i === 0 ? "1.25rem" : "1rem", color: "white", marginBottom: "4px" }}>{project.title}</h3>
+                <h3 style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontWeight: 700, fontSize: i === 0 ? "1.35rem" : "1.05rem", color: "white", marginBottom: "4px" }}>{project.title}</h3>
                 <p className="opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0" style={{ fontFamily: "Noto Sans Arabic, sans-serif", fontSize: "13px", color: "rgba(255,255,255,0.85)", lineHeight: 1.6 }}>{project.desc}</p>
               </div>
             </motion.div>
@@ -177,7 +177,7 @@ export function ProjectsGallery() {
             style={{
               background: "linear-gradient(135deg, #1A1A2E, #0D0D1A)",
               color: "white",
-              fontFamily: "Tajawal, sans-serif",
+              fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
               fontWeight: 700,
               fontSize: "16px",
               textDecoration: "none",
@@ -241,7 +241,7 @@ export function ProjectsGallery() {
             >
               <img src={filtered[lightboxIndex].url} alt={filtered[lightboxIndex].title} className="w-full rounded-2xl" style={{ maxHeight: "75vh", objectFit: "contain" }} />
               <div className="mt-4 text-center rounded-xl p-4" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(232,160,32,0.2)" }}>
-                <h3 style={{ fontFamily: "Tajawal, sans-serif", fontWeight: 800, fontSize: "1.2rem", color: "white", marginBottom: "4px" }}>{filtered[lightboxIndex].title}</h3>
+                <h3 style={{ fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif", fontWeight: 700, fontSize: "1.25rem", color: "white", marginBottom: "4px" }}>{filtered[lightboxIndex].title}</h3>
                 <p style={{ fontFamily: "Noto Sans Arabic, sans-serif", fontSize: "14px", color: "#8A9BB0" }}>{filtered[lightboxIndex].desc}</p>
               </div>
               <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full" style={{ background: "rgba(232,160,32,0.85)" }}>

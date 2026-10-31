@@ -67,9 +67,9 @@ export function Navbar({ dark = false }: { dark?: boolean }) {
               onClick={() => handleNav(link.href)}
               className="relative group transition-colors duration-200 hover:text-[#E8A020]"
               style={{
-                fontFamily: "Tajawal, sans-serif",
+                fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
                 fontWeight: 600,
-                fontSize: "14px",
+                fontSize: "15px",
                 color: textColor,
                 background: "none",
                 border: "none",
@@ -84,9 +84,9 @@ export function Navbar({ dark = false }: { dark?: boolean }) {
             href="/#/gallery"
             className="relative flex items-center gap-1 px-3 py-1.5 rounded-lg transition-all duration-200"
             style={{
-              fontFamily: "Tajawal, sans-serif",
+              fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
               fontWeight: 700,
-              fontSize: "13px",
+              fontSize: "14px",
               color: "#E8A020",
               textDecoration: "none",
               background: "rgba(232,160,32,0.1)",
@@ -104,7 +104,7 @@ export function Navbar({ dark = false }: { dark?: boolean }) {
           style={{
             background: "linear-gradient(135deg, #E8A020, #C47B1A)",
             color: "white",
-            fontFamily: "Tajawal, sans-serif",
+            fontFamily: "ThmanyahSerifText-Medium, Tajawal, sans-serif",
             fontWeight: 700,
             fontSize: "14px",
             border: "none",
